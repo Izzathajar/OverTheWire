@@ -114,8 +114,79 @@ c : flag for byte
 ```
 ![image](https://user-images.githubusercontent.com/44106858/109920998-099cc480-7cf6-11eb-98a9-71798ec74b0e.png)
 ```markdown
-THe password is : HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+The password is : HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 ```
 
+### Level 7
+The password for the next level is stored in the file data.txt next to the word millionth.
+What we can do is we read the data.txt and grep the word millionth. grep command is used to find specific word inside a text file.
+```markdown
+cat data.txt | grep millionth
+```
+![image](https://user-images.githubusercontent.com/44106858/109922166-ed9a2280-7cf7-11eb-9657-1371e3f398f8.png)
+```markdown
+The password is : cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Level 8
+The password for the next level is stored in the file data.txt and is the only line of text that occurs only once. To find text that occurs only once, we can sort them out then find unique text using uniq -u command. -u is to print only unique text.
+``markdown
+sort data.txt | uniq -u
+```
+![image](https://user-images.githubusercontent.com/44106858/109923676-115e6800-7cfa-11eb-96c0-791863f95679.png)
+```markdown
+The password is : UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```
+
+### Level 9
+The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters. To read human-readable strings, we can use **strings** command. Then use **grep** command to find "=" sign.
+```markdown
+bandit9@bandit:~$ strings data.txt | grep =
+```
+![image](https://user-images.githubusercontent.com/44106858/109924334-15d75080-7cfb-11eb-8173-978154d4a4c8.png)
+```
+The password is : truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+```
+
+### Level 10
+The password for the next level is stored in the file data.txt, which contains base64 encoded data.
+To read the text, first we need to decode it by using **base64** command. For base64 command, there is an option -d which used for decode base64 encoded data. After that, we will get the password.
+```
+base64 -d data.txt
+```
+![image](https://user-images.githubusercontent.com/44106858/109924832-dc531500-7cfb-11eb-8539-3bbda5d2c2e9.png)
+```
+The password is : IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+```
+
+### Level 11
+The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions. This case is referring to ROT 13. so the basic of ROT 13 is the normal alphabetic order changed from A-Z to N-AZ-M. So we need to change the alphabetic order by using **tr** command. **tr** stands for translate. Enable us to change certain pattern. We can run command such below.
+```ls
+
+cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
+![image](https://user-images.githubusercontent.com/44106858/109926008-6d76bb80-7cfd-11eb-8636-374be11ceb83.png)
+```
+The password is : 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+```
+
+### Level 12 
+The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. To solve this, we can use gzip, bzip2 and tar command. First, create nre directory as recommended. Then, use **xxd -r** command to convert hexdump into binary file and save it into a file. The command is such below.
+```
+xxd -r data.txt > file
+```
+command to decompress gz/bz/tar file:
+```
+gz : gzip -d (filename)
+bz : bzip2 -d (filename)
+tar : tar -xvf (filename)
+```
+After that, we check the file type. if the file type is gzip, then we need to rename the file with .gz extension. If bzip2, then assign as .bz and if tar type, assign with .tar. The processes are repeated untill we gain the last file which is data8.bin. After the final decompression, we get an ASCII text format. Read the file and we get the password for next level.
+
+![image](https://user-images.githubusercontent.com/44106858/109935397-83d64480-7d08-11eb-9dad-bf3058aa216b.png)
+![image](https://user-images.githubusercontent.com/44106858/109935770-d4e63880-7d08-11eb-8fbc-8561e3dc0108.png)
+
+
+```
+The password is : 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+```
