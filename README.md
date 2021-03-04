@@ -130,7 +130,7 @@ The password is : cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
 ### Level 8
 The password for the next level is stored in the file data.txt and is the only line of text that occurs only once. To find text that occurs only once, we can sort them out then find unique text using uniq -u command. -u is to print only unique text.
-``markdown
+```markdown
 sort data.txt | uniq -u
 ```
 ![image](https://user-images.githubusercontent.com/44106858/109923676-115e6800-7cfa-11eb-96c0-791863f95679.png)
